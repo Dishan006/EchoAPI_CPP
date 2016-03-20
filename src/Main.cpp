@@ -15,7 +15,7 @@ int main() {
 	return 0;
 }
 
-extern "C" const char* ProcessRequest(char* request, char* method, char* body, char**headers, int hederCount) {
+extern "C" int ProcessRequest(char* request, char* method, char* body, char**headers, int hederCount, char** out_response) {
 
 	ostringstream hederCountString;
 	hederCountString << hederCount;
@@ -45,5 +45,6 @@ extern "C" const char* ProcessRequest(char* request, char* method, char* body, c
 	requestString->append(body);
 	requestString->append(" }");
 
-	return requestString->c_str();
+	*out_response = (char*) requestString->c_str();
+	return 200;
 }
